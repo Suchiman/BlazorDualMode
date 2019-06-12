@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,6 +11,9 @@
 <body>
     <app>Loading...</app>
 
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script id="blazorMode"></script>
+    <script>
+        document.getElementById("blazorMode").src = window.location.search.includes("mode=server") ? "_framework/blazor.server.js" : "_framework/blazor.webassembly.js";
+    </script>
 </body>
 </html>
