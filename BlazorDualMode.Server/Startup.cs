@@ -30,11 +30,11 @@ namespace BlazorDualMode.Server
                 // Setup HttpClient for server side in a client side compatible fashion
                 services.AddScoped<HttpClient>(s =>
                 {
-                    // Creating the URI helper needs to wait until the JS Runtime is initialized, so defer it.
-                    var uriHelper = s.GetRequiredService<IUriHelper>();
+                    // Creating the URI helper needs to wait until the JS Runtime is initialized, so defer it.      
+                    var uriHelper = s.GetRequiredService<NavigationManager>();
                     return new HttpClient
                     {
-                        BaseAddress = new Uri(uriHelper.GetBaseUri())
+                        BaseAddress = new Uri(uriHelper.BaseUri)
                     };
                 });
             }
@@ -57,7 +57,7 @@ namespace BlazorDualMode.Server
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub<Client.App>("app");
+                endpoints.MapBlazorHub("app");
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapFallbackToClientSideBlazor<Client.Startup>("index.html");
             });
