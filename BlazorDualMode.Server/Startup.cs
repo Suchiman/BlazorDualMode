@@ -57,9 +57,9 @@ namespace BlazorDualMode.Server
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub("app");
+                endpoints.MapBlazorHub();
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapFallbackToClientSideBlazor<Client.Startup>("index.html");
+                endpoints.MapFallbackToPage("/_Host");
             });
         }
     }
