@@ -18,11 +18,6 @@ namespace BlazorDualMode.Server
         {
             services.AddMvc().AddNewtonsoftJson();
             services.AddServerSideBlazor();
-            services.AddResponseCompression(opts =>
-            {
-                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-                    new[] { "application/octet-stream" });
-            });
 
             // Server Side Blazor doesn't register HttpClient by default
             if (!services.Any(x => x.ServiceType == typeof(HttpClient)))
@@ -43,15 +38,15 @@ namespace BlazorDualMode.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseResponseCompression();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBlazorDebugging();
+                app.UseWebAssemblyDebugging();
             }
 
-            app.UseClientSideBlazorFiles<Client.Startup>();
+            app.UseStaticFiles();
+
+            app.UseBlazorFrameworkFiles();
 
             app.UseRouting();
 
