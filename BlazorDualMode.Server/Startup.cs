@@ -44,6 +44,8 @@ namespace BlazorDualMode.Server
                 app.UseWebAssemblyDebugging();
             }
 
+            app.UseStaticFiles();
+
             app.UseBlazorFrameworkFiles();
 
             app.UseRouting();
